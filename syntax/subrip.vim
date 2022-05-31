@@ -24,7 +24,7 @@ syn region transparent matchgroup=srtTime start='[0-9]*:[0-9]*:[0-9]*,[0-9]*' en
 syn match srtError "{y:[bi]}"
 syn match srtError "{y:[bi][bi]}"
 syn match srtError "\[br\]"
-syn match srtMarkup "<.\{-}>"
+syn match srtMarkup "<.\{-}>" conceal
 
 
 if main_syntax == "subrip"
