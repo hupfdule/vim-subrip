@@ -1,0 +1,38 @@
+*subrip*  ftplugin for subrip subtitle files
+
+===============================================================================
+Contents ~
+
+    1. Commands ................................. |commands|
+         :SrtRenumber                             |:SrtRenumber|
+    2. Mappings ................................. |mappings|
+    4. Settings ................................. |settings|
+
+==============================================================================
+COMMANDS                                                              *commands*
+
+The only command available is the command to renumber all subtitle blocks:
+
+  :SrtRenumber [file]                                             *:SrtRenumber*
+
+      Renumber all the counters in the file.
+      This is necessary after adding or removing subtitle blocks.
+
+==============================================================================
+MAPPINGS                                                              *mappings*
+
+  *]]*  Jump to the next subtitle block
+  *[[*  Jump to the previous subtitle block
+
+The mappings try to jump "intelligently". It takes the element at the
+cursor position into account. That means if the cursor is on a timecode
+element it will jump to the timecode element in the next / previous
+subtitle block.
+
+==============================================================================
+SETTINGS                                                              *settings*
+
+vim-subrip doesn't provide its own settings.
+
+But it allows concealing the markup in the subtitle captions. To actually
+apply such concealing set 'conceallevel' to 2.
