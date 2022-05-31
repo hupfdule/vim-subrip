@@ -1,20 +1,60 @@
+let s:regex_blank_line                    = '^\s*$'
+let s:regex_counter_line                  = '^\d\+\s*$'
+let s:regex_counter_line_after_blank_line = '^\s*\n\zs\d\+\s*$'
+let s:regex_timecode_line                 = '^\d\d:\d\d:\d\d,\d\d\d\s\+-->\s\+\d\d:\d\d:\d\d,\d\d\d\s*$'
+
 ""
 " Jump to the next (or previous) subtitle block.
 "
 " @param {backwards}: If v:true, jump backwards, otherwise forward.
-
-" At the moment this is very naiive and only jumps to the counter line.
-" This could be made better to jump to the same element in the next block,
-" e.g. if the cursor is on the time element, jump to the time element in the
-" next subtitle block.
+"
+" The jump will take the current element type of the cursor line into
+" account and will jump to the corresponding element in the next / previous
+" subtitle block.
+" That means: if the cursor is on the timecode line, jump to the timecode
+" line in the next / previous subtitle block.
 function! subrip#jump_to_next_block(backwards) abort
-  " TODO: Jump to the same level. If cursor is on number, jump to the
-  " number. If cursor is on time, jump to time. If cursor is  on test, jump
-  " to text.
-  if a:backwards
-    normal! {{j
+  " Find the type of the current line
+  let l:line = getline('.')
+  if l:line =~# s:regex_blank_line
+    let l:current_element = 'blank'
+  elseif l:line =~# s:regex_counter_line && getline(line('.')-1) =~# s:regex_blank_line
+    let l:current_element = 'counter'
+  elseif l:line =~# s:regex_timecode_line
+    let l:current_element = 'timecode'
   else
-    normal! }j
+    let l:current_element  = 'caption'
+  endif
+
+  " Prepare search flags
+  if a:backwards
+    let l:searchflags = 'bW'
+  else
+    let l:searchflags = 'W'
+  endif
+
+  " now search the same element type in the next / previous subtitle block
+  if l:current_element ==# 'blank'
+    let l:lnum = search(s:regex_blank_line, l:searchflags)
+    if l:lnum ==# 0 && a:backwards
+      call cursor(1, virtcol('.'))
+    endif
+  elseif l:current_element ==# 'counter'
+    let l:lnum = search(s:regex_counter_line_after_blank_line, l:searchflags)
+  elseif l:current_element ==# 'timecode'
+    let l:lnum = search(s:regex_timecode_line, l:searchflags)
+  else
+    if a:backwards
+      let s:cur_pos = getpos('.')
+      let l:lnum = search(s:regex_timecode_line, l:searchflags)
+    endif
+
+    let l:lnum = search(s:regex_timecode_line, l:searchflags)
+    if l:lnum !=# 0
+        normal! j
+    elseif a:backwards
+      call setpos('.', s:cur_pos)
+    endif
   endif
 endfunction
 
