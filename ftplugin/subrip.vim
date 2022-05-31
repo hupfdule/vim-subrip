@@ -7,8 +7,8 @@ let b:did_ftplugin = 1
 let s:cpo_save = &cpo
 "}}}1
 
-nnoremap <buffer> ]] :call subrip#jump_to_next_block(v:false)<cr>
-nnoremap <buffer> [[ :call subrip#jump_to_next_block(v:true)<cr>
+nnoremap <buffer> <silent> ]] :call subrip#jump_to_next_block(v:false)<cr>
+nnoremap <buffer> <silent> [[ :call subrip#jump_to_next_block(v:true)<cr>
 
 command -buffer SrtRenumber call subrip#renumber()
 
