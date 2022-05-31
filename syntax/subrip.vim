@@ -24,6 +24,7 @@ syn region transparent matchgroup=srtTime start='[0-9]*:[0-9]*:[0-9]*,[0-9]*' en
 syn match srtError "{y:[bi]}"
 syn match srtError "{y:[bi][bi]}"
 syn match srtError "\[br\]"
+syn match srtMarkup "<.\{-}>"
 
 
 if main_syntax == "subrip"
@@ -47,6 +48,7 @@ if version >= 508 || !exists("did_srt_syn_inits")
   HiLink srtArrow Statement
   HiLink srtTime Type
   HiLink srtError Error
+  HiLink srtMarkup Comment
   delcommand HiLink
 
 endif
