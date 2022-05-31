@@ -72,7 +72,7 @@ function! subrip#renumber() abort
   let l:firstline = nextnonblank(1)
   call cursor(l:firstline, 1)
   let l:counter = 1
-  if getline('.') !~# '^\d\+\s*$'
+  if getline('.') !~# s:regex_counter_line
     echohl ErrorMsg | echo "Value on line " . line('.') . " is not a number. Cowardly refusing to change it. Value is: " . getline('.') | echohl Normal
     return
   endif
@@ -82,7 +82,7 @@ function! subrip#renumber() abort
     call setline(line('.'), l:counter)
     let l:counter += 1
     " search next counter line (only digits after empty line)
-    let l:lnum = search('^\s*$\n\zs\d\+\s*$', 'W')
+    let l:lnum = search(s:regex_counter_line_after_blank_line, 'W')
     if l:lnum ==# 0
       break
     endif
