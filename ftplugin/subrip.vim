@@ -14,11 +14,13 @@ nnoremap <buffer> <silent> <Plug>(SrtJumpToNextBlock) :call subrip#jump_to_next_
 nnoremap <buffer> <silent> <Plug>(SrtJumpToPrevBlock) :call subrip#jump_to_next_block(v:true)<cr>
 nnoremap <buffer> <silent> <Plug>(SrtShiftN)          :SrtShift<cr>
 xnoremap <buffer> <silent> <Plug>(SrtShiftX)          :SrtShift<cr>
+nnoremap <buffer> <silent> <Plug>(SrtHelp)            :call subrip#help#show()<cr>
 
 nmap     <buffer> <silent> ]]        <Plug>(SrtJumpToNextBlock)
 nmap     <buffer> <silent> [[        <Plug>(SrtJumpToPrevBlock)
 nmap     <buffer> <silent> <leader>S <Plug>(SrtShiftN)
 xmap     <buffer> <silent> <leader>S <Plug>(SrtShiftX)
+nmap     <buffer> <silent> g?        <Plug>(SrtHelp)
 
 " Plugin folklore "{{{1
 let &cpo = s:cpo_save
