@@ -7,7 +7,7 @@ let b:did_ftplugin = 1
 let s:cpo_save = &cpo
 "}}}1
 
-command! -buffer SrtRenumber call subrip#renumber()
+command! -buffer                   SrtRenumber                call subrip#renumber()
 command! -buffer -range=% -nargs=? SrtShift    <line1>,<line2>call subrip#shift(<f-args>)
 
 nnoremap <buffer> <silent> <Plug>(SrtJumpToNextBlock) :call subrip#jump_to_next_block(v:false)<cr>
