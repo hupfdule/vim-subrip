@@ -7,10 +7,13 @@ let b:did_ftplugin = 1
 let s:cpo_save = &cpo
 "}}}1
 
-nnoremap <buffer> <silent> ]] :call subrip#jump_to_next_block(v:false)<cr>
-nnoremap <buffer> <silent> [[ :call subrip#jump_to_next_block(v:true)<cr>
+command! -buffer SrtRenumber call subrip#renumber()
+command! -buffer -range=% SrtShift    <line1>,<line2>call subrip#shift()
 
-command -buffer SrtRenumber call subrip#renumber()
+nnoremap <buffer> <silent> ]]        :call subrip#jump_to_next_block(v:false)<cr>
+nnoremap <buffer> <silent> [[        :call subrip#jump_to_next_block(v:true)<cr>
+nnoremap <buffer> <silent> <leader>S :SrtShift<cr>
+xnoremap <buffer> <silent> <leader>S :SrtShift<cr>
 
 " Plugin folklore "{{{1
 let &cpo = s:cpo_save
