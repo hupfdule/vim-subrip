@@ -102,13 +102,19 @@ endfunction
 " to all timecode lines in the given range.
 "
 " The amout to shift by must be specified in milliseconds.
-function! subrip#shift() range abort
-  let l:amount = input("Shift by (ms): ")
+"
+" @params {amount} The milliseconds to shift the timecodes.
+"                  If missing or v:false the function will request the
+"                  amount from the user .
+function! subrip#shift(amount = v:null) range abort
+  echom 'amount ' . a:amount
+  if a:amount is v:null
+    let l:amount = input("Shift by (ms): ")
+  else
+    let l:amount = a:amount
+  endif
   let l:firstline = a:firstline
   let l:lastline = a:lastline
-
-  echom a:firstline . ' ---- ' . a:lastline
-  return
 
   let l:cur_pos = getpos('.')
 
