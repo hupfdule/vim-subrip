@@ -10,10 +10,15 @@ let s:cpo_save = &cpo
 command! -buffer SrtRenumber call subrip#renumber()
 command! -buffer -range=% SrtShift    <line1>,<line2>call subrip#shift()
 
-nnoremap <buffer> <silent> ]]        :call subrip#jump_to_next_block(v:false)<cr>
-nnoremap <buffer> <silent> [[        :call subrip#jump_to_next_block(v:true)<cr>
-nnoremap <buffer> <silent> <leader>S :SrtShift<cr>
-xnoremap <buffer> <silent> <leader>S :SrtShift<cr>
+nnoremap <buffer> <silent> <Plug>(SrtJumpToNextBlock) :call subrip#jump_to_next_block(v:false)<cr>
+nnoremap <buffer> <silent> <Plug>(SrtJumpToPrevBlock) :call subrip#jump_to_next_block(v:true)<cr>
+nnoremap <buffer> <silent> <Plug>(SrtShiftN)          :SrtShift<cr>
+xnoremap <buffer> <silent> <Plug>(SrtShiftX)          :SrtShift<cr>
+
+nmap     <buffer> <silent> ]]        <Plug>(SrtJumpToNextBlock)
+nmap     <buffer> <silent> [[        <Plug>(SrtJumpToPrevBlock)
+nmap     <buffer> <silent> <leader>S <Plug>(SrtShiftN)
+xmap     <buffer> <silent> <leader>S <Plug>(SrtShiftX)
 
 " Plugin folklore "{{{1
 let &cpo = s:cpo_save
