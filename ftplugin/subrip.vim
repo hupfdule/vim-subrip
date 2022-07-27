@@ -15,14 +15,14 @@ nnoremap <buffer> <silent> <Plug>(SrtJumpToPrevBlock)      :call subrip#jump_to_
 nnoremap <buffer> <silent> <Plug>(SrtShift)                :SrtShift<cr>
 xnoremap <buffer> <silent> <Plug>(SrtShift)                :SrtShift<cr>
 inoremap <buffer> <silent> <Plug>(SrtShift)           <C-O>:.SrtShift<cr>
-nnoremap <buffer> <silent> <Plug>(SrtHelp)                 :call subrip#help#show()<cr>
 
 nmap     <buffer> <silent> ]]        <Plug>(SrtJumpToNextBlock)
 nmap     <buffer> <silent> [[        <Plug>(SrtJumpToPrevBlock)
 nmap     <buffer> <silent> <leader>S <Plug>(SrtShift)
 xmap     <buffer> <silent> <leader>S <Plug>(SrtShift)
 imap     <buffer> <silent> <leader>S <Plug>(SrtShift)
-nmap     <buffer> <silent> g?        <Plug>(SrtHelp)
+
+" The mapping for a short help via vimpl/pluginhelp is prepared in after/plugin/subrip.vim
 
 " Plugin folklore "{{{1
 let &cpo = s:cpo_save

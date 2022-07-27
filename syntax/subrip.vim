@@ -1,6 +1,7 @@
 " Vim syntax file
-" Language:	Syntax highlighting for subtitle files in Subrip (srt) format
-" Maintainer:	Drew Neil <andrew.jr.neil@gmail.com>
+" Language:	    Syntax highlighting for subtitle files in Subrip (srt) format
+" Maintainer:	    Marco Herrn <marco@mherrn.de>
+" Original Creator: Drew Neil <andrew.jr.neil@gmail.com>
 
 " For version 5.x: Clear all syntax items
 " For version 6.x: Quit when a syntax file was already loaded

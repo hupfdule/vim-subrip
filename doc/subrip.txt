@@ -1,38 +1,144 @@
 *subrip*  ftplugin for subrip subtitle files
 
-===============================================================================
-Contents ~
-
-    1. Commands ................................. |commands|
-         :SrtRenumber                             |:SrtRenumber|
-    2. Mappings ................................. |mappings|
-    4. Settings ................................. |settings|
+Version:        0.1.0
+Release Date:   2022-07-27
 
 ==============================================================================
-COMMANDS                                                              *commands*
+Contents ~
 
-The only command available is the command to renumber all subtitle blocks:
+    1. Introduction ............................. |subrip-introduction|
+    2. Commands ................................. |subrip-commands|
+         :SrtRenumber                             |:SrtRenumber|
+         :SrtShift                                |:SrtShift|
+    4. Mappings ................................. |subrip-mappings|
+         <Plug>SrtJumpToNextBlock                 |srt-jump-to-previous-block|
+         <Plug>SrtJumpToPrevBlock                 |srt-jump-to-prev-block|
+         <Plug>SrtShift                           |srt-shift|
+         <Plug>SrtHelp                            |srt-help|
+         Default mappings                         |subrip-default-mappings|
+    5. Settings ................................. |subrip-settings|
+    6. Complementary Plugins .................... |subrip-complementary-plugins|
+    7. Changelog ................................ |subrip-changelog|
+    8. License .................................. |subrip-license|
 
-  :SrtRenumber [file]                                             *:SrtRenumber*
+
+==============================================================================
+INTRODUCTION                                               *subrip-introduction*
+
+vim-subrip is an ftplugin for subrip subtitle files (usually with the `.srt`
+extension).
+
+It provides syntax highlighting as well as some commands and mappings for
+handling such files.
+
+
+==============================================================================
+COMMANDS                                                       *subrip-commands*
+
+The following commands are available in a "subrip" buffer.
+
+  :SrtRenumber                                                    *:SrtRenumber*
 
       Renumber all the counters in the file.
       This is necessary after adding or removing subtitle blocks.
 
-==============================================================================
-MAPPINGS                                                              *mappings*
+  :[range]SrtShift [ms]                                              *:SrtShift*
 
-  *]]*  Jump to the next subtitle block
-  *[[*  Jump to the previous subtitle block
-
-The mappings try to jump "intelligently". It takes the element at the
-cursor position into account. That means if the cursor is on a timecode
-element it will jump to the timecode element in the next / previous
-subtitle block.
+     Shift the timecodes in the whole file or (if given) in the specified
+     range by a certain amount of milliseconds.
+     If the argument [ms] is given, the timecodes will be shifted by that
+     amount. Otherwise the plugin will prompt for the amount of milliseconds
+     to shift.
 
 ==============================================================================
-SETTINGS                                                              *settings*
+MAPPINGS                                                       *subrip-mappings*
+
+The following navigational mappings are available in normal mode:
+
+  <Plug>(SrtJumpToNextBlock)                            *srt-jump-to-next-block*
+  <Plug>(SrtJumpToPrevBlock)                            *srt-jump-to-prev-block*
+
+    Move the cursor to the next or previous block, respectively. 
+    The cursor will be put in the first column of the timecode line.
+
+    The mappings try to jump "intelligently". They take the element at the
+    cursor position into account. That means if the cursor is on a timecode
+    element they will jump to the timecode element in the next / previous
+    subtitle block.
+
+The following mappings are available in normal, visual, select and
+insert mode:
+
+  <Plug>(SrtShift)                                                   *srt-shift*
+
+    Shift the timecodes in the whole file or the selected range by a certain
+    amount of milliseconds. In insert mode only the timecodes in the current
+    line are changed.
+
+    These mappings call the |:SrtShift| command, but will always request the
+    amount to shift from the user.
+
+  <Plug>(SrtHelp)                                                     *srt-help*
+
+    Open a help window displaying the current key mappings and settings
+    of push.vim
+
+    This mapping is only available if |vimpl/vim-pluginhelp| is installed.
+
+    If |skywind3000/vim-quickui| is available the help content will be
+    shown in a popup dialog. Otherwise a normal split window will be
+    used.
+    The split window can be closed with either `q` or `gq`.
+
+Default mappings                                       *subrip-default-mappings*
+
+  *]]*           `<Plug>`(SrtJumpToNextBlock)
+  *[[*           `<Plug>`(SrtJumpToPrevBlock)
+  *<Leader>S*    `<Plug>`(SrtShift)
+  *g?*           `<Plug>`(SrtHelp
+
+
+==============================================================================
+SETTINGS                                                       *subrip-settings*
 
 vim-subrip doesn't provide its own settings.
 
 But it allows concealing the markup in the subtitle captions. To actually
 apply such concealing set 'conceallevel' to 2.
+
+
+==============================================================================
+COMPLEMENTARY PLUGINS                             *subrip-complementary-plugins*
+
+*vimpl/vim-pluginhelp*
+
+    To display the help window, vim-pluginhelp needs to be installed.
+
+    https://github.com/vimpl/vim-pluginhelp
+
+*skywind3000/vim-quickui*
+
+    To display the help window in a floating window, vim-quickui needs to be
+    installed.
+
+    https://github.com/skywind3000/vim-quickui
+
+
+==============================================================================
+CHANGELOG                                                     *subrip-changelog*
+
+    0.1.0 .................................................... 2022-07-27
+
+        - Initial release
+
+
+==============================================================================
+LICENSE                                                         *subrip-license*
+
+This plugin is licensed under the terms of the MIT License.
+
+http://opensource.org/licenses/MIT
+
+
+==============================================================================
+vim: set ft=help tw=78 sw=4 :
